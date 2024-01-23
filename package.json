@@ -1,0 +1,17 @@
+{
+  "name": "pdf-view",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "author": "xujiujiu",
+  "license": "MIT",
+  "keywords": [
+    "pdf",
+    "view",
+    "h5"
+  ],
+  "bugs": {
+    "url": "https://github.com/xujiujiu/pdfview-dist/issues"
+  },
+  "homepage": "https://github.com/xujiujiu/pdfview-dist#readme"
+}
