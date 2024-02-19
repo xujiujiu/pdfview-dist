@@ -9,8 +9,9 @@
 | source              | string|ArrayBuffer  | ''     | 是   | pdf资源，支持http协议或ArrayBuffer 类型数据                                           |
 | width            | number  |        | 否   | 组件宽度，默认100%                                                       |
 | height           | number  |        | 否   | 组件高度，默认100%                                                         |
+| zoomEnable           | boolean  | true | 否   | 是否可缩放                                                      |
 
-## 事件
+## on事件
 
 **readfinish --- 首次阅读到底部触发**
 
@@ -24,6 +25,12 @@
 | ------- | ------ | --------------------- |
 | code    | number | 错误码，加载失败时为1 |
 | message | string | 错误提示              |
+
+**函数方法**
+
+| 方法名  | 入参   | 传参取值 | 说明                  |
+| ------- | ------ | ------ |--------------------- |
+| setZoomEnable    | Boolean |  默认为true | 控制缩放 |
 
 **示例**
 
