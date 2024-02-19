@@ -1,5 +1,5 @@
 {
-  "name": "pdf-view",
+  "name": "pdf-component",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -8,6 +8,7 @@
   "keywords": [
     "pdf",
     "view",
+    "webComponent",
     "h5"
   ],
   "bugs": {
