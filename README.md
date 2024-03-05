@@ -9,7 +9,9 @@
 | source              | string|ArrayBuffer  | ''     | 是   | pdf资源，支持http协议或ArrayBuffer 类型数据                                           |
 | width            | number  |        | 否   | 组件宽度，默认100%                                                       |
 | height           | number  |        | 否   | 组件高度，默认100%                                                         |
+| scale           | number  | 2 | 否   | 缩放倍数                                                      |
 | zoomEnable           | boolean  | true | 否   | 是否可缩放                                                      |
+| canvasIdPrefix           | string  |  | 否   | canvas id 前缀                                                      |
 
 ## on事件
 
