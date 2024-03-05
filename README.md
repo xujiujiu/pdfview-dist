@@ -6,7 +6,7 @@
 
 | 属性             | 类型    | 默认值 | 必填 | 说明                                                                       |
 | ---------------- | ------- | ------ | ---- | -------------------------------------------------------------------------- |
-| source              | string|ArrayBuffer  | ''     | 是   | pdf资源，支持http协议或ArrayBuffer 类型数据                                           |
+| source              | string｜ArrayBuffer  | ''     | 是   | pdf资源，支持http协议或ArrayBuffer 类型数据                                           |
 | width            | number  |        | 否   | 组件宽度，默认100%                                                       |
 | height           | number  |        | 否   | 组件高度，默认100%                                                         |
 | scale           | number  | 2 | 否   | 缩放倍数                                                      |
