@@ -9,8 +9,9 @@
 | source              | string｜ArrayBuffer  | ''     | 是   | pdf资源，支持http协议或ArrayBuffer 类型数据                                           |
 | width            | number  |        | 否   | 组件宽度，默认100%                                                       |
 | height           | number  |        | 否   | 组件高度，默认100%                                                         |
-| scale           | number  | 2 | 否   | 缩放倍数                                                      |
-| zoomEnable           | boolean  | true | 否   | 是否可缩放                                                      |
+| scale           | number  | 1 | 否   | 当前展示倍数，默认1倍                                                     |
+| max-zoom           | number  | 2 | 否   | 双击缩放倍数，范围1+                                                     |
+| zoomDisabled           | boolean  | false | 否   | 是否关闭双击缩放                                                      |
 | canvasIdPrefix           | string  |  | 否   | canvas id 前缀                                                      |
 
 ## on事件
@@ -32,7 +33,7 @@
 
 | 方法名  | 入参   | 传参取值 | 说明                  |
 | ------- | ------ | ------ |--------------------- |
-| setZoomEnable    | Boolean |  默认为true | 控制缩放 |
+| disabledZoom    | Boolean |  默认为false | 关闭双击缩放功能 |
 
 **示例**
 
