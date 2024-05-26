@@ -2,6 +2,54 @@
 
 在移动端 h5 能够直接通过使用 <pdf-view> 标签来展示 pdf 阅读器功能的组件
 
+## 使用方式
+
+```
+npm i pdfview
+```
+在 入口文件如 app.js 中使用组件
+
+```
+import "pdfview"
+
+```
+在页面中正常使用
+
+```
+<pdf-view source="http://xxx.pdf"></pdf-view>
+```
+### 示例
+
+该组件是 webComponent 标准的组件，所以在使用时需要在工程中配置编译时忽略编译，避免编译时出现 warning。 如 vue 环境中，可在 beforeCreate 中忽略 pdf-preview 的编译：
+
+```js
+const App = {
+  beforeCreate() {
+    Vue.config.ignoredElements.push('pdf-view')
+  }
+}
+```
+
+若按需加载组件，如只在某个页面中使用，由于 pdf 组件在弱网环境下，加载较慢。为了更好的体验，可以使用加载状态的占位符和渲染条件判断，来控制 pdf 组件的显示
+
+``` js
+// template
+<pdf-view v-if="componentLoaded" :source="source" height="400"></pdf-view>
+<loader v-if="!componentLoaded" ></loader>
+
+
+// js
+created() {
+      // 具体参数参考 https://webpack.js.org/api/module-methods/#magic-comments
+    import(
+    /* webpackChunkName: "pdfview" */
+    /* webpackPrefetch: true */
+    "pdfview").then(module => {
+        this.componentLoaded = true
+    });
+},
+```
+
 ## API
 
 | 属性             | 类型    | 默认值 | 必填 | 说明                                                                       |
@@ -34,41 +82,7 @@
 | 方法名  | 入参   | 传参取值 | 说明                  |
 | ------- | ------ | ------ |--------------------- |
 | setZoom    | Boolean |  默认为false | 控制双击缩放功能 |
-
-
-## 示例
-
-该 h5 组件是 webComponent 标准的组件，所以在使用时需要在工程中配置编译时忽略编译，如 vue 环境中，可在 beforeCreate 中忽略 pdf-preview 的编译：
-
-```js
-const App = {
-  beforeCreate() {
-    Vue.config.ignoredElements.push('pdf-view')
-  },
-  onShow (options) {
-  }
-}
-```
-
-由于 pdf 组件在弱网环境下，加载较慢。为了更好的体验，可以使用加载状态的占位符和渲染条件判断，来控制 pdf 组件的显示
-
-``` js
-// template
-<pdf-view v-if="componentLoaded" :source="source" height="400"></pdf-view>
-<loader v-if="!componentLoaded" ></loader>
-
-
-// js
-created() {
-      // 具体参数参考 https://webpack.js.org/api/module-methods/#magic-comments
-    import(
-    /* webpackChunkName: "pdfview" */
-    /* webpackPrefetch: true */
-    "pdfview/dist/pdf.js").then(module => {
-        this.componentLoaded = true
-    });
-},
-```
+| clearPdf    |  |   | 清除pdf 渲染内容 |
 
 
 
