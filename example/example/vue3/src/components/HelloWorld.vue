@@ -3,7 +3,6 @@
     <!-- <h1>{{ msg }}</h1> -->
     <button @click="add">+</button>
     <button @click="remove">-</button>
-    <button @click="clear">清理pdf 内容</button>
     <div v-if="!componentLoaded">加载中...</div>
     <pdf-view
       id="pdfView"
@@ -31,6 +30,7 @@ onMounted(() => {
     /* webpackChunkName: "pdfview" */
     /* webpackPrefetch: true */
     "pdfview"
+    // "../../../../dist/index.js"
   ).then(() => {
     componentLoaded.value = true;
   });
