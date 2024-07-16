@@ -3,6 +3,8 @@
     <!-- <h1>{{ msg }}</h1> -->
     <button @click="add">+</button>
     <button @click="remove">-</button>
+    <button @click="clear">清理pdf 内容</button>
+    <input type="number" @input="changeNum" v-model="number" />
     <div v-if="!componentLoaded">加载中...</div>
     <pdf-view
       id="pdfView"
@@ -13,7 +15,7 @@
       @readFinish="readFinish"
       @numUpdate="updateNum"
       @percentUpdate="percentUpdate"
-      @pdfInitialized="pdfInitialized"
+      @ready="ready"
     ></pdf-view>
     <button @click="setZoomScale">控制缩放</button>
   </div>
@@ -25,6 +27,7 @@ const src = ref("./1.pdf").value;
 let scale = ref(1).value;
 let zoomEnable = ref(true).value;
 let componentLoaded = ref(false);
+let number = ref(1).value
 onMounted(() => {
   import(
     /* webpackChunkName: "pdfview" */
@@ -58,7 +61,14 @@ function setZoomScale() {
 function readFinish(e) {
   console.log("readFinish", e);
 }
-function pdfInitialized(e) {
+
+function changeNum() {
+  let pdfView = document.getElementById("pdfView");
+  const num = number.value;
+  pdfView.goto(num);
+  console.log("跳转的页码：", num);
+}
+function ready(e) {
   console.log("pdf 已完成初始化", e);
 }
 function percentUpdate(e) {

@@ -73,7 +73,7 @@ created() {
 | readFinish   |  { finishReading: boolean } | 是否已完成阅读事件 | 
 | numUpdate   |  { currentNum: number } | 当前阅读到的页码更新事件 | 
 | percentUpdate   |  { percent: number } | pdf 加载进度事件 | 
-| pdfInitialized   |  { title: string （pdf 标题）, totalPage: number （总页码） } | pdf 加载完成事件 | 
+| ready   |  { title: string （pdf 标题）, totalPage: number （总页码） } | pdf 加载完成事件 | 
 | error   |  { code: number, message: 错误提示 } | 是否已完成阅读事件 | 
 
 
@@ -82,7 +82,8 @@ created() {
 
 | 方法名  | 入参   | 传参取值 | 说明                  |
 | ------- | ------ | ------ |--------------------- |
-| setZoom    | Boolean |  默认为false | 控制双击缩放功能 |
+| setZoom | Boolean |  默认为false | 控制双击缩放功能 |
+| goto    | Number |     | 跳转第几页 ｜
 | clearPdf    |  |   | 清除pdf 渲染内容 |
 
 
