@@ -6,14 +6,14 @@
 
 安装依赖
 ```
-npm i pdfview
+npm i pdfview-dist
 ```
 模块提供了2种使用方式，支持一些不支持使用 webComponent 的 场景
 
 ### webcomponent 组件注册模式
 
 ```js
-import { PdfViewRegistry } "pdfview"
+import { PdfViewRegistry } "pdfview-dist"
 // 注册自定义组件名
 PdfViewRegistry('pdf-view')
 ```
@@ -80,9 +80,9 @@ const App = {
 created() {
       // 具体参数参考 https://webpack.js.org/api/module-methods/#magic-comments
     import(
-    /* webpackChunkName: "pdfview" */
+    /* webpackChunkName: "pdfview-dist" */
     /* webpackPrefetch: true */
-    "pdfview").then(module => {
+    "pdfview-dist").then(module => {
       // webcomponent 组件注册模式
       module.PdfViewRegistry('pdf-view')
       this.componentLoaded = true
