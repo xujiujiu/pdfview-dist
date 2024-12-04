@@ -5,6 +5,7 @@
     <button @click="remove">-</button>
     <button @click="clear">清理pdf 内容</button>
     <input type="number" @input="changeNum" v-model="number" />
+    <div>自定义组件模式</div>
     <div v-if="!componentLoaded">加载中...</div>
     <pdf-view
       id="pdfView"
@@ -14,9 +15,11 @@
       :max-zoom="3"
       @readFinish="readFinish"
       @numUpdate="updateNum"
-      @percentUpdate="percentUpdate"
+      @progress="progress"
       @ready="ready"
     ></pdf-view>
+    <div>js调用模式</div>
+    <div id="pdf-dom"></div>
     <button @click="setZoomScale">控制缩放</button>
   </div>
 </template>
@@ -28,6 +31,7 @@ let scale = ref(1).value;
 let zoomEnable = ref(true).value;
 let componentLoaded = ref(false);
 let number = ref(1).value
+let pdfViewLib = null
 onMounted(() => {
   import(
     /* webpackChunkName: "pdfview" */
@@ -35,15 +39,37 @@ onMounted(() => {
     "pdfview"
     // "../../../../dist/index.js"
   ).then(() => {
+    module.PdfViewRegistry('pdf-view')
     componentLoaded.value = true;
+    // 模块调用模式
+    pdfViewLib = new module.PdfViewLib('#pdf-com', {
+        source: this.source,
+        maxZoom: 5,
+        height: 200,
+      })
+
+      pdfViewLib.on('ready', (data) => {
+        console.log("pdf lib 已完成初始化", e);
+      })
+      pdfViewLib.on('progress', (data) => {
+        console.log("pdf lib 加载进度", e);
+      })
+      pdfViewLib.on('readFinish', (data) => {
+        console.log('readFinish', data)
+      })
+      pdfViewLib.on('error', (data) => {
+        console.log('error', data)
+      })
   });
 });
 function add() {
   scale.value += 0.2;
+  pdfViewLib.setScale(scale.value)
 }
 
 function remove() {
-  scale.value += 0.2;
+  scale.value -= 0.2;
+  pdfViewLib.setScale(scale.value)
 }
 
 function clear() {
@@ -54,8 +80,9 @@ function clear() {
 function setZoomScale() {
   let pdfView = document.getElementById("pdfView");
   const enbale = !zoomEnable.value;
-  pdfView.disabledZoom(enbale);
   zoomEnable.value = enbale;
+  pdfView.disabledZoom(enbale);
+  pdfViewLib.disabledZoom(enbale)
 }
 
 function readFinish(e) {
@@ -66,12 +93,13 @@ function changeNum() {
   let pdfView = document.getElementById("pdfView");
   const num = number.value;
   pdfView.goto(num);
+  pdfViewLib.goto(num)
   console.log("跳转的页码：", num);
 }
 function ready(e) {
   console.log("pdf 已完成初始化", e);
 }
-function percentUpdate(e) {
+function progress(e) {
   console.log("pdf 加载进度", e);
 }
 function updateNum(e) {

@@ -19,8 +19,11 @@ function App() {
 
   return (
     <div className="App">
+      <div>自定义组件模式</div>
       {!componentLoaded && <div>加载中...</div>}
       {componentLoaded && <pdf-view source={src}></pdf-view>}
+      <div>js调用模式</div>
+      <div id="pdf-dom"></div>
     </div>
   );
 }
