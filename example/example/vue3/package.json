@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "pdfview": "file:../../",
     "vue": "^3.2.13"
   },
   "devDependencies": {
@@ -22,7 +23,9 @@
     "prettier": "^3.0.3",
     "vite": "^4.4.9"
   },
-  "engines": { "node": ">=16.14.0" },
+  "engines": {
+    "node": ">=16.14.0"
+  },
   "browserslist": [
     "> 1%",
     "last 2 versions",

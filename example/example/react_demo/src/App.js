@@ -1,30 +1,42 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import "pdfview/dist/css.css";
 
 const src = './1.pdf';
 
 
 function App() {
   let [componentLoaded, setComponentLoaded] = useState(false)
-
+  let [pdfViewLib, setPdfViewLib] = useState(null)
 
   useEffect(() => {
-    import(
-      /* webpackChunkName: "pdfview" */
-      /* webpackPrefetch: true */
-      "pdfview").then(() => {
-        setComponentLoaded(true)
-      });
-  }, [])
+    if (!pdfViewLib) {
+      import(
+        /* webpackChunkName: "pdfview" */
+        /* webpackPrefetch: true */
+        "pdfview").then((module) => {
+          console.log(module)
+          module.PdfViewRegistry('pdf-view')
+          // 模块调用模式
+          setPdfViewLib(new module.PdfViewLib('#pdf-com', {
+            source: src,
+            maxZoom: 5,
+            height: 200,
+          }))
+          setComponentLoaded(true)
+        });
+    }
+
+  }, [pdfViewLib])
 
   return (
     <div className="App">
-      <div>自定义组件模式</div>
+      <h2>自定义组件模式</h2>
       {!componentLoaded && <div>加载中...</div>}
-      {componentLoaded && <pdf-view source={src}></pdf-view>}
-      <div>js调用模式</div>
-      <div id="pdf-dom"></div>
-    </div>
+      {componentLoaded && <pdf-view source={src} height="200"></pdf-view>}
+      <h2>js调用模式</h2>
+      <div id="pdf-com"></div>
+    </div >
   );
 }
 

@@ -1,6 +1,8 @@
-# pdfview
+# pdfview-dist
 
 在移动端 h5 能够直接通过使用 <pdf-view> 标签来展示 pdf 阅读器功能的组件
+
+也可在项目中通过new PdfViewLib() 的方式调用
 
 ## 使用方式
 
@@ -10,7 +12,7 @@ npm i pdfview-dist
 ```
 模块提供了2种使用方式，支持一些不支持使用 webComponent 的 场景
 
-### webcomponent 组件注册模式
+### 方式1: webcomponent 组件注册模式
 
 ```js
 import { PdfViewRegistry } "pdfview-dist"
@@ -24,10 +26,13 @@ PdfViewRegistry('pdf-view')
 <pdf-view source="http://xxx.pdf"></pdf-view>
 
 ```
-### 模块调用模式
+### 方式2:模块调用模式
+
+> 方式2需要额外加载 css 文件
 
 ```js
-import { PdfViewLib } "pdfview"
+import { PdfViewLib } "pdfview-dist";
+import 'pdfview-dist/dist/index.css';
 ```
 
 在页面中正常使用

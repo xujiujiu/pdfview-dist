@@ -19,8 +19,11 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-      'pdfview': path.join(__dirname, '../../dist/index.js')
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+      // 'pdfview': path.join(__dirname, '../../dist/index.js')
     }
+  },
+  optimizeDeps: {
+    include: ['pdfview']
   }
 })

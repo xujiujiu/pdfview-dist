@@ -1,88 +1,92 @@
 <template>
   <div class="hello">
     <!-- <h1>{{ msg }}</h1> -->
-    <button @click="add">+</button>
-    <button @click="remove">-</button>
-    <button @click="clear">清理pdf 内容</button>
-    <input type="number" @input="changeNum" v-model="number" />
-    <div>自定义组件模式</div>
-    <div v-if="!componentLoaded">加载中...</div>
+    <div>
+      <button @click="add">+</button>
+      <button @click="remove">-</button>
+    </div>
+    <div>
+      <button @click="clear">清理pdf 内容</button>
+    </div>
+    <div>跳转第<input type="number" @input="changeNum" v-model="data.number" />页</div>
+    <div><button @click="setZoomScale">控制缩放</button></div>
+    <h2>自定义组件模式</h2>
+    <div v-if="!data.componentLoaded">加载中...</div>
     <pdf-view
       id="pdfView"
       v-else
-      :source="src"
-      :scale="scale"
+      :source="data.src"
+      :scale="data.scale"
       :max-zoom="3"
+      :height="200"
       @readFinish="readFinish"
       @numUpdate="updateNum"
       @progress="progress"
       @ready="ready"
     ></pdf-view>
-    <div>js调用模式</div>
+    <h2>js调用模式</h2>
     <div id="pdf-dom"></div>
-    <button @click="setZoomScale">控制缩放</button>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-const src = ref("./1.pdf").value;
-let scale = ref(1).value;
-let zoomEnable = ref(true).value;
-let componentLoaded = ref(false);
-let number = ref(1).value
-let pdfViewLib = null
+import { ref, onMounted, reactive } from "vue";
+import "pdfview/dist/css.css";
+let data = reactive({
+  src: "./1.pdf",
+  zoomEnable: true,
+  componentLoaded: false,
+  number: 1,
+  scale: 1,
+  pdfViewLib: null
+});
 onMounted(() => {
-  import(
-    /* webpackChunkName: "pdfview" */
-    /* webpackPrefetch: true */
-    "pdfview"
-    // "../../../../dist/index.js"
-  ).then(() => {
-    module.PdfViewRegistry('pdf-view')
-    componentLoaded.value = true;
+  import("pdfview").then((module) => {
+    module.PdfViewRegistry("pdf-view");
+    data.componentLoaded = true;
     // 模块调用模式
-    pdfViewLib = new module.PdfViewLib('#pdf-com', {
-        source: this.source,
-        maxZoom: 5,
-        height: 200,
-      })
+    data.pdfViewLib = new module.PdfViewLib("#pdf-dom", {
+      source: data.src,
+      maxZoom: 5,
+      height: 200
+    });
 
-      pdfViewLib.on('ready', (data) => {
-        console.log("pdf lib 已完成初始化", e);
-      })
-      pdfViewLib.on('progress', (data) => {
-        console.log("pdf lib 加载进度", e);
-      })
-      pdfViewLib.on('readFinish', (data) => {
-        console.log('readFinish', data)
-      })
-      pdfViewLib.on('error', (data) => {
-        console.log('error', data)
-      })
+    data.pdfViewLib.on("ready", (data) => {
+      console.log("pdf lib 已完成初始化", data);
+    });
+    data.pdfViewLib.on("progress", (data) => {
+      console.log("pdf lib 加载进度", data);
+    });
+    data.pdfViewLib.on("readFinish", (data) => {
+      console.log("readFinish", data);
+    });
+    data.pdfViewLib.on("error", (data) => {
+      console.log("error", data);
+    });
   });
 });
 function add() {
-  scale.value += 0.2;
-  pdfViewLib.setScale(scale.value)
+  data.scale += 0.2;
+  data.pdfViewLib.setScale(data.scale);
 }
 
 function remove() {
-  scale.value -= 0.2;
-  pdfViewLib.setScale(scale.value)
+  data.scale -= 0.2;
+  data.pdfViewLib.setScale(data.scale);
 }
 
 function clear() {
   let pdfView = document.getElementById("pdfView");
   pdfView.clearPdf();
+  data.pdfViewLib.clearPdf();
 }
 
 function setZoomScale() {
   let pdfView = document.getElementById("pdfView");
-  const enbale = !zoomEnable.value;
-  zoomEnable.value = enbale;
+  const enbale = !data.zoomEnable;
+  data.zoomEnable = enbale;
   pdfView.disabledZoom(enbale);
-  pdfViewLib.disabledZoom(enbale)
+  data.pdfViewLib.disabledZoom(enbale);
 }
 
 function readFinish(e) {
@@ -91,10 +95,9 @@ function readFinish(e) {
 
 function changeNum() {
   let pdfView = document.getElementById("pdfView");
-  const num = number.value;
-  pdfView.goto(num);
-  pdfViewLib.goto(num)
-  console.log("跳转的页码：", num);
+  pdfView.goto(data.number);
+  data.pdfViewLib.goto(data.number);
+  console.log("跳转的页码：", data.number);
 }
 function ready(e) {
   console.log("pdf 已完成初始化", e);
@@ -110,7 +113,7 @@ function updateNum(e) {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .hello {
-  height: 50vh;
+  height: 100vh;
   overflow: auto;
 }
 h3 {
