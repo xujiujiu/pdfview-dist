@@ -18,7 +18,7 @@
       :source="data.src"
       :scale="data.scale"
       :max-zoom="3"
-      :height="200"
+      :height="300"
       @readFinish="readFinish"
       @numUpdate="updateNum"
       @progress="progress"
@@ -31,7 +31,7 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import "pdfview/dist/css.css";
+import "pdfview/dist/index.css";
 let data = reactive({
   src: "./1.pdf",
   zoomEnable: true,
@@ -48,20 +48,20 @@ onMounted(() => {
     data.pdfViewLib = new module.PdfViewLib("#pdf-dom", {
       source: data.src,
       maxZoom: 5,
-      height: 200
+      height: 300
     });
 
-    data.pdfViewLib.on("ready", (data) => {
-      console.log("pdf lib 已完成初始化", data);
+    data.pdfViewLib.on("ready", (e) => {
+      console.log("pdf lib 已完成初始化", e);
     });
-    data.pdfViewLib.on("progress", (data) => {
-      console.log("pdf lib 加载进度", data);
+    data.pdfViewLib.on("progress", (e) => {
+      console.log("pdf lib 加载进度", e);
     });
-    data.pdfViewLib.on("readFinish", (data) => {
-      console.log("readFinish", data);
+    data.pdfViewLib.on("readFinish", (e) => {
+      console.log("readFinish", e);
     });
-    data.pdfViewLib.on("error", (data) => {
-      console.log("error", data);
+    data.pdfViewLib.on("error", (e) => {
+      console.log("error", e);
     });
   });
 });
@@ -85,8 +85,8 @@ function setZoomScale() {
   let pdfView = document.getElementById("pdfView");
   const enbale = !data.zoomEnable;
   data.zoomEnable = enbale;
-  pdfView.disabledZoom(enbale);
-  data.pdfViewLib.disabledZoom(enbale);
+  pdfView.setZoom(enbale);
+  data.pdfViewLib.setZoom(enbale);
 }
 
 function readFinish(e) {

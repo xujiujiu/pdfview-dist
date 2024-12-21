@@ -4,13 +4,41 @@
 
 也可在项目中通过new PdfViewLib() 的方式调用
 
-## 使用方式
+## 安装
+支持 script 标签安装和 npm 安装方式
 
-安装依赖
+### npm 安装方式
+
+```bash
+npm install pdfview-dist
 ```
-npm i pdfview-dist
+
+具体使用方法参考[使用方法](#使用方式)
+
+### script 标签安装方式
+
++ 引入js
+
+```html
+<script src="pdfview-dist/index.js" type="text/javascript" charset="utf-8"></script>
 ```
-模块提供了2种使用方式，支持一些不支持使用 webComponent 的 场景
+
++ 引入css（仅在使用[模块调用模式](#方式2模块调用模式)需要）
+
+```html
+<link rel="stylesheet" href="pdfview-dist/dist/index.css" />
+```
+
++ 注册组件
+```js
+// 可全局注册对应组件
+PdfViewRegistry('pdf-view')
+```
+
+具体使用方法也可参考[使用方法](#使用方式)
+
+## 使用方式
+本模块模块提供了2种使用方式，支持一些不支持使用 webComponent 的 场景
 
 ### 方式1: webcomponent 组件注册模式
 
@@ -69,7 +97,7 @@ const App = {
   }
 }
 ```
-
+### 按需加载
 若按需加载组件，如只在某个页面中使用，由于 pdf 组件在弱网环境下，加载较慢。为了更好的体验，可以使用加载状态的占位符和渲染条件判断，来控制 pdf 组件的显示
 
 ``` js
@@ -110,23 +138,25 @@ created() {
     });
 },
 ```
+## API接口方法
 
-## API
+### API
 
 | 属性             | 类型    | 默认值 | 必填 | 说明                                                                     |
 | ---------------- | ------- | ------ | ---- | --------------------------------------------------------------------- |
-| source           | string  | ArrayBuffer  | ''     | 是   | pdf资源，支持http协议或ArrayBuffer 类型数据                 |
+| source           | string/ArrayBuffer  | ''     | 是   | pdf资源，支持http协议或ArrayBuffer 类型数据                 |
 | width            | number  |        | 否   | 组件宽度，默认100%                                                      |
 | height           | number  |        | 否   | 组件高度，默认100%                                                      |
-| limit            | number  |        | 否   | 最大渲染 pdf 的页数                                                     |
+| limit            | number  |        | 否   | 分片渲染 pdf 的最大页数, 默认10                                           |
 | cmap-url         | string  |        | 否   | 字体的cmaps文件夹路径，如 https://unpkg.com/pdfjs-dist@2.5.207/cmaps/    |
 | hide-page-num    | boolean | false  | 否   | 不展示左上角页码                                                        |
+| hide-back-top    | boolean | false  | 否   | 不展示右下角回到顶部按钮                                                       |
 | scale            | number  | 1      | 否   | 当前展示倍数，默认1倍                                                    |
 | max-zoom         | number  | 2      | 否   | 双击缩放倍数，范围1+                                                    |
 | zoom-disabled    | boolean | false  | 否   | 是否关闭双击缩放                                                        |
-| canvas-id-prefix | string  |        | 否   | canvas id 前缀                                                        |
+| page-id-prefix | string  |        | 否   | pdf 页面元素的 id 前缀                                                 |
 
-## on事件
+### 事件
 
 
 | 事件名        | 出参 | 说明           |
@@ -138,18 +168,16 @@ created() {
 | error   |  { code: number, message: 错误提示 } | 是否已完成阅读事件 | 
 
 
-
-## 函数方法
+### 函数方法
 
 | 方法名  | 入参   | 传参取值 | 说明                  |
 | ------- | ------ | ------ |--------------------- |
 | setZoom | Boolean |  默认为false | 控制双击缩放功能 |
-| goto    | Number |     | 跳转第几页 ｜
-| clearPdf    |  |   | 清除pdf 渲染内容 |
+| goto    | Number |     | 跳转第几页 |
+| clearPdf    |  |   | 清除 pdf 渲染内容 |
 
 
-
-## 兼容性：
+# 兼容性：
 
 | 系统  | 版本   | 说明                  |
 | ------- | ------ | --------------------- |
@@ -158,7 +186,7 @@ created() {
 | chrome | 78+ | -  |
 | safari  | 11.1+ | - |
 
-## 依赖
+# 依赖
 | 插件名  | 版本   | 说明                  |
 | ------- | ------ | --------------------- |
 | pdfjs-dist | 2.5.207 | - |

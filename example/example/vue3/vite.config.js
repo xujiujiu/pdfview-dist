@@ -17,6 +17,15 @@ export default defineConfig({
       overlay: false
     }
   },
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => ['pdf-view'].includes(tag),
+        }
+      }
+    })
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

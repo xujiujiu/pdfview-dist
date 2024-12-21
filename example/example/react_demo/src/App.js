@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import "pdfview/dist/css.css";
+import "pdfview/dist/index.css";
 
 const src = './1.pdf';
 
@@ -21,7 +21,7 @@ function App() {
           setPdfViewLib(new module.PdfViewLib('#pdf-com', {
             source: src,
             maxZoom: 5,
-            height: 200,
+            height: 300,
           }))
           setComponentLoaded(true)
         });
@@ -33,7 +33,7 @@ function App() {
     <div className="App">
       <h2>自定义组件模式</h2>
       {!componentLoaded && <div>加载中...</div>}
-      {componentLoaded && <pdf-view source={src} height="200"></pdf-view>}
+      {componentLoaded && <pdf-view source={src} height="300"></pdf-view>}
       <h2>js调用模式</h2>
       <div id="pdf-com"></div>
     </div >
