@@ -3,6 +3,7 @@
   "version": "1.0.7",
   "description": "",
   "main": "dist-umd/index.js",
+  "module": "dist-esm/index.js",
   "author": "xujiujiu",
   "license": "MIT",
   "keywords": [
@@ -16,6 +17,9 @@
   },
   "homepage": "https://github.com/xujiujiu/pdfview-dist#readme",
   "files": [
-    "[\n  \"dist-umd\",\n  \"dist-esm\"\n]"
+    "dist-umd",
+    "dist-esm",
+    "README.md",
+    "CHANGELOG.md"
   ]
 }
