@@ -15,5 +15,7 @@
     "url": "https://github.com/xujiujiu/pdfview-dist/issues"
   },
   "homepage": "https://github.com/xujiujiu/pdfview-dist#readme",
-  "files": "[\n  \"dist-umd\",\n  \"dist-esm\"\n]"
+  "files": [
+    "[\n  \"dist-umd\",\n  \"dist-esm\"\n]"
+  ]
 }
