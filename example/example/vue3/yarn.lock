@@ -27,9 +27,9 @@
     "@babel/helper-string-parser" "^7.25.9"
     "@babel/helper-validator-identifier" "^7.25.9"
 
-"@esbuild/darwin-x64@0.18.20":
-  "integrity" "sha512-pc5gxlMDxzm513qPGbCbDukOdsGtKhfxD1zJKXjCCcU7ju50O7MeAZ8c4krSJcOIJGFR+qx21yMMVYwiQvyTyQ=="
-  "resolved" "https://registry.npmmirror.com/@esbuild/darwin-x64/-/darwin-x64-0.18.20.tgz"
+"@esbuild/darwin-arm64@0.18.20":
+  "integrity" "sha512-bxRHW5kHU38zS2lPTPOyuyTm+S+eobPUnTNkdJEfAddYgEcll4xkT8DB9d2008DtTbl7uJag2HuE5NZAZgnNEA=="
+  "resolved" "https://registry.npmmirror.com/@esbuild/darwin-arm64/-/darwin-arm64-0.18.20.tgz"
   "version" "0.18.20"
 
 "@eslint-community/eslint-utils@^4.2.0", "@eslint-community/eslint-utils@^4.4.0":
@@ -697,6 +697,11 @@
     "prelude-ls" "^1.2.1"
     "type-check" "~0.4.0"
 
+"loadjs@^4.3.0":
+  "integrity" "sha512-vNX4ZZLJBeDEOBvdr2v/F+0aN5oMuPu7JTqrMwp+DtgK+AryOlpy6Xtm2/HpNr+azEa828oQjOtWsB6iDtSfSQ=="
+  "resolved" "https://registry.npmmirror.com/loadjs/-/loadjs-4.3.0.tgz"
+  "version" "4.3.0"
+
 "locate-path@^6.0.0":
   "integrity" "sha512-iPZK6eYjbxRu3uB4/WZ3EsEIMJFMqAoopl3R+zuq0UjcAm/MO6KCweDgPfP3elTztoKP3KtnVHxTn2NHBSDVUw=="
   "resolved" "https://registry.npmmirror.com/locate-path/-/locate-path-6.0.0.tgz"
@@ -804,14 +809,6 @@
   "integrity" "sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q=="
   "resolved" "https://registry.npmmirror.com/path-key/-/path-key-3.1.1.tgz"
   "version" "3.1.1"
-
-"pdfview@file:../../":
-  "resolved" "file:../.."
-  "version" "1.0.5"
-  dependencies:
-    "lit-element" "2.5.1"
-    "lit-html" "1.4.1"
-    "pdfjs-dist" "2.5.207"
 
 "picocolors@^1.1.1":
   "integrity" "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA=="

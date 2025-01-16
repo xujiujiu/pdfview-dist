@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vite --host 0.0.0.0 --port 9999 --force",
+    "dev": "vite --host 0.0.0.0 --port 9999 --debug hmr",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "pdfview": "file:../../",
+    "loadjs": "^4.3.0",
     "vue": "^3.2.13"
   },
   "devDependencies": {

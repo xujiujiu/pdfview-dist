@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import "pdfview/dist/index.css";
+import "pdfview/dist-umd/index.css";
 
 const src = './1.pdf';
 

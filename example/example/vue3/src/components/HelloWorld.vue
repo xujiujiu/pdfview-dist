@@ -8,15 +8,17 @@
     <div>
       <button @click="clear">清理pdf 内容</button>
     </div>
-    <div>跳转第<input type="number" @input="changeNum" v-model="data.number" />页</div>
+    <div>跳转第<input type="number" @input="changeNum" v-model="number" />页</div>
     <div><button @click="setZoomScale">控制缩放</button></div>
     <h2>自定义组件模式</h2>
-    <div v-if="!data.componentLoaded">加载中...</div>
+    <div v-if="!componentLoaded">加载中...</div>
     <pdf-view
-      id="pdfView"
+      ref="pdfView"
       v-else
       :source="data.src"
-      :scale="data.scale"
+      :scale="scale"
+      :hide-back-top="!backTopEnable"
+      :hide-page-num="!pageNumberEnable"
       :max-zoom="3"
       :height="300"
       @readFinish="readFinish"
@@ -31,62 +33,70 @@
 
 <script setup>
 import { ref, onMounted, reactive } from "vue";
-import "pdfview/dist/index.css";
+import "pdfview/dist-esm/index.css";
 let data = reactive({
-  src: "./1.pdf",
-  zoomEnable: true,
-  componentLoaded: false,
-  number: 1,
-  scale: 1,
-  pdfViewLib: null
+  src: "./1.pdf"
 });
+let pdfViewLib = null
+let scale = ref(2);
+let number = ref(1);
+let zoomEnable = ref(true);
+let componentLoaded = ref(false);
+let pageNumberEnable = ref(true);
+let backTopEnable = ref(true);
+
+const pdfView = ref(null);
+
 onMounted(() => {
   import("pdfview").then((module) => {
     module.PdfViewRegistry("pdf-view");
-    data.componentLoaded = true;
+    componentLoaded.value = true;
     // 模块调用模式
-    data.pdfViewLib = new module.PdfViewLib("#pdf-dom", {
+    pdfViewLib = new module.PdfViewLib("#pdf-dom", {
       source: data.src,
       maxZoom: 5,
-      height: 300
+      height: 300,
+      hideBackTop: !backTopEnable.value,
+      hidePageNum: !pageNumberEnable.value
     });
 
-    data.pdfViewLib.on("ready", (e) => {
+    pdfViewLib.on("ready", (e) => {
       console.log("pdf lib 已完成初始化", e);
     });
-    data.pdfViewLib.on("progress", (e) => {
+    pdfViewLib.on("progress", (e) => {
       console.log("pdf lib 加载进度", e);
     });
-    data.pdfViewLib.on("readFinish", (e) => {
+    pdfViewLib.on("readFinish", (e) => {
       console.log("readFinish", e);
     });
-    data.pdfViewLib.on("error", (e) => {
+    pdfViewLib.on("error", (e) => {
       console.log("error", e);
     });
   });
 });
 function add() {
-  data.scale += 0.2;
-  data.pdfViewLib.setScale(data.scale);
+  scale.value = scale.value +  0.2;
+  pdfView.value.setAttribute('scale', scale.value);
+  // pdfView.value.setScale(scale.value);
+  pdfViewLib.setScale(scale.value);
 }
 
 function remove() {
-  data.scale -= 0.2;
-  data.pdfViewLib.setScale(data.scale);
+  scale.value = scale.value - 0.2;
+  pdfView.value.setAttribute('scale', scale.value);
+  // pdfView.value.setScale(scale.value);
+  pdfViewLib.setScale(scale.value);
 }
 
 function clear() {
-  let pdfView = document.getElementById("pdfView");
-  pdfView.clearPdf();
-  data.pdfViewLib.clearPdf();
+  pdfView.value.clearPdf();
+  pdfViewLib.clearPdf();
 }
 
 function setZoomScale() {
-  let pdfView = document.getElementById("pdfView");
-  const enbale = !data.zoomEnable;
-  data.zoomEnable = enbale;
-  pdfView.setZoom(enbale);
-  data.pdfViewLib.setZoom(enbale);
+  zoomEnable.value = !zoomEnable.value;
+  pdfView.value.setZoom(zoomEnable.value);
+  pdfViewLib.setZoom(zoomEnable.value);
 }
 
 function readFinish(e) {
@@ -94,10 +104,9 @@ function readFinish(e) {
 }
 
 function changeNum() {
-  let pdfView = document.getElementById("pdfView");
-  pdfView.goto(data.number);
-  data.pdfViewLib.goto(data.number);
-  console.log("跳转的页码：", data.number);
+  pdfView.value.goto(number.value);
+  pdfViewLib.goto(number.value);
+  console.log("跳转的页码：", number.value);
 }
 function ready(e) {
   console.log("pdf 已完成初始化", e);

@@ -8,13 +8,15 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   root: './',
   publicDir: 'public',
+  cacheDir: 'node_modules/.vite',
   base: './',
-  plugins: [
-    vue(),
-  ],
   server: {
     hmr: {
       overlay: false
+    },
+    // 支持外部文件
+    fs: {
+      strict: false
     }
   },
   plugins: [
@@ -28,11 +30,14 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-      // 'pdfview': path.join(__dirname, '../../dist/index.js')
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      'pdfview': path.join(__dirname, '../../')
     }
   },
   optimizeDeps: {
-    include: ['pdfview']
+    force: true,
+    // include: ['pdf-view'],
+    // exclude: ['pdf-view'],
+    holdUntilCrawlEnd: false
   }
 })

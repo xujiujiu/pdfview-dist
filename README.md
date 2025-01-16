@@ -20,13 +20,13 @@ npm install pdfview-dist
 + 引入js
 
 ```html
-<script src="pdfview-dist/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="pdfview-dist/dist-umd/index.js" type="text/javascript" charset="utf-8"></script>
 ```
 
 + 引入css（仅在使用[模块调用模式](#方式2模块调用模式)需要）
 
 ```html
-<link rel="stylesheet" href="pdfview-dist/dist/index.css" />
+<link rel="stylesheet" href="pdfview-dist/dist-umd/index.css" />
 ```
 
 + 注册组件
@@ -60,7 +60,7 @@ PdfViewRegistry('pdf-view')
 
 ```js
 import { PdfViewLib } "pdfview-dist";
-import 'pdfview-dist/dist/index.css';
+import 'pdfview-dist/dist-umd/index.css';
 ```
 
 在页面中正常使用
@@ -175,6 +175,12 @@ created() {
 | setZoom | Boolean |  默认为false | 控制双击缩放功能 |
 | goto    | Number |     | 跳转第几页 |
 | clearPdf    |  |   | 清除 pdf 渲染内容 |
+
+## vite 项目中使用
+
+在 vite 项目中使用时，若想直接使用js文件时，需要通过`pdfview-dist/dist-esm/index.js` 的方式进行引用。
+
+若通过npm包的方式引用时，则不需要考虑 `dist-esm` 文件夹，直接使用`pdfview-dist` 即可。
 
 
 # 兼容性：
