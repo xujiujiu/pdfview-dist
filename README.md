@@ -155,6 +155,23 @@ created() {
 | max-zoom         | number  | 2      | 否   | 双击缩放倍数，范围1+                                                    |
 | zoom-disabled    | boolean | false  | 否   | 是否关闭双击缩放                                                        |
 | page-id-prefix | string  |        | 否   | pdf 页面元素的 id 前缀                                                 |
+| watermark | object  |        | 否   | 水印配置                                                 |
+
+### options
+
+#### watermark
+| 属性             | 类型    | 默认值 | 必填 | 说明                                                    |
+| ---------------- | ------- | ------ | ---- | --------------------------------------------------------------------- |
+| type | string  |        | 是   | 水印类型，默认text，支持text/image                                                 |
+| text | string  |        | 是   | 水印类型是text时，文字内容                                          |
+| fontSize | string  |    16    |  否  | 水印类型是text时，文字大小                                      |
+| color | string  |   #000000    | 否  | 水印类型是text时，文字颜色                                   |
+| url | string  |        | 是   | 水印类型是image时，图片地址                                          |
+| width | number  |    100    |  否  | 水印类型是image时，图片宽度                                         |
+| height | number  |        | 否   | 水印类型是image时，图片高度                                        |
+| opacity | number  |    0.15    | 否   | 水印透明度                                     |
+| angle | number  |    text:-30,image:0    |  否  | 水印倾斜角度                                     |
+| spacingRatio | number  |    2    | 否   | 水印间距比例                                     |
 
 ### 事件
 

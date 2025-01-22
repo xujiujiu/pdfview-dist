@@ -21,6 +21,7 @@
       :hide-page-num="!pageNumberEnable"
       :max-zoom="3"
       :height="300"
+      :watermark="watermark"
       @readFinish="readFinish"
       @numUpdate="updateNum"
       @progress="progress"
@@ -44,6 +45,13 @@ let zoomEnable = ref(true);
 let componentLoaded = ref(false);
 let pageNumberEnable = ref(true);
 let backTopEnable = ref(true);
+let watermark = ref({
+  type: 'text',
+  text: '机密文件',
+  fontSize: 16,
+  opacity: 0.15,
+  angle: -30
+});
 
 const pdfView = ref(null);
 
@@ -57,7 +65,8 @@ onMounted(() => {
       maxZoom: 5,
       height: 300,
       hideBackTop: !backTopEnable.value,
-      hidePageNum: !pageNumberEnable.value
+      hidePageNum: !pageNumberEnable.value,
+      watermark: watermark.value
     });
 
     pdfViewLib.on("ready", (e) => {
